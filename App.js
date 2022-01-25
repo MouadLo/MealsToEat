@@ -1,62 +1,34 @@
 import React from 'react';
+import { ThemeProvider } from 'styled-components/native';
 import { StatusBar as ExpoStatusBar } from 'expo-status-bar';
-import { StyleSheet, StatusBar, Text, View, SafeAreaView } from 'react-native';
+import { StyleSheet } from 'react-native';
 import {
-  DefaultTheme,
-  Searchbar,
-  useTheme,
-  Provider as PaperProvider,
-} from 'react-native-paper';
+  useFonts as useOswald,
+  Oswald_400Regular,
+} from '@expo-google-fonts/oswald';
+import { useFonts as useLato, Lato_400Regular } from '@expo-google-fonts/lato';
 
-const theme = {
-  ...DefaultTheme,
-  roundness: 2,
-  dark: true,
-  mode: 'exact',
-  colors: {
-    ...DefaultTheme.colors,
-    primary: '#3498db',
-    accent: '#f1c40f',
-  },
-};
+import { RestaurantScreen } from './src/features/restaurants/screens/restaurant.screen';
+
+import { theme } from './src/infrastructure/theme';
 
 export default function App() {
-  const [searchQuery, setSearchQuery] = React.useState('');
-  const { colors } = useTheme();
-  const onChangeSearch = query => setSearchQuery(query);
-
-  return (
-    <PaperProvider theme={theme}>
-      <SafeAreaView style={styles.container}>
-        <View style={styles.search}>
-          <Searchbar
-            placeholder="Search "
-            onChangeText={onChangeSearch}
-            value={searchQuery}
-          />
-        </View>
-        <View style={[styles.list, { borderColor: colors.primary }]}>
-          <Text theme={{ fonts: { medium: 'Open Sans' } }}>{searchQuery}</Text>
-        </View>
-      </SafeAreaView>
-      <ExpoStatusBar style="auto" />
-    </PaperProvider>
-  );
+  let [oswaldLoaded] = useOswald({
+    Oswald_400Regular,
+  });
+  let [latoLoaded] = useLato({
+    Lato_400Regular,
+  });
+  if (!latoLoaded || !oswaldLoaded) {
+    return null;
+  } else {
+    return (
+      <ThemeProvider theme={theme}>
+        <RestaurantScreen />
+        <ExpoStatusBar style="auto" />
+      </ThemeProvider>
+    );
+  }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: StatusBar.currentHeight,
-  },
-  search: {
-    padding: 16,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  list: {
-    flex: 1,
-    borderWidth: 2,
-    padding: 16,
-  },
-});
+const styles = StyleSheet.create({});
