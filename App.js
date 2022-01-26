@@ -1,34 +1,78 @@
-import React from 'react';
-import { ThemeProvider } from 'styled-components/native';
-import { StatusBar as ExpoStatusBar } from 'expo-status-bar';
-import { StyleSheet } from 'react-native';
+import React from "react";
+import { ThemeProvider } from "styled-components/native";
+import { StatusBar as ExpoStatusBar } from "expo-status-bar";
+import { StyleSheet, View } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
   useFonts as useOswald,
   Oswald_400Regular,
-} from '@expo-google-fonts/oswald';
-import { useFonts as useLato, Lato_400Regular } from '@expo-google-fonts/lato';
+} from "@expo-google-fonts/oswald";
+import { useFonts as useLato, Lato_400Regular } from "@expo-google-fonts/lato";
+import { Ionicons } from "@expo/vector-icons";
+import { RestaurantsScreen } from "./src/features/restaurants/screens/restaurants.screen";
+import { theme } from "./src/infrastructure/theme";
+import { Text } from "./src/components/typography/text.component";
+import { SafeArea } from "./src/components/utility/safe-area.component";
 
-import { RestaurantScreen } from './src/features/restaurants/screens/restaurant.screen';
+const Tab = createBottomTabNavigator();
 
-import { theme } from './src/infrastructure/theme';
+const TAB_ICON = {
+  Restaurants: "md-restaurant",
+  Map: "md-map",
+  Settings: "md-settings",
+};
+
+const Settings = () => (
+  <SafeArea>
+    <Text>Settings</Text>
+  </SafeArea>
+);
+const Map = () => (
+  <SafeArea>
+    <Text>Map</Text>
+  </SafeArea>
+);
+
+const createScreenOptions = ({ route }) => {
+  const iconName = TAB_ICON[route.name];
+  return {
+    tabBarIcon: ({ size, color }) => (
+      <Ionicons name={iconName} size={size} color={color} />
+    ),
+    headerShown: false,
+    tabBarOptions: {
+      activeTintColor: "tomato",
+      inactiveTintColor: "gray",
+    },
+  };
+};
 
 export default function App() {
-  let [oswaldLoaded] = useOswald({
+  const [oswaldLoaded] = useOswald({
     Oswald_400Regular,
   });
-  let [latoLoaded] = useLato({
+
+  const [latoLoaded] = useLato({
     Lato_400Regular,
   });
-  if (!latoLoaded || !oswaldLoaded) {
-    return null;
-  } else {
-    return (
-      <ThemeProvider theme={theme}>
-        <RestaurantScreen />
-        <ExpoStatusBar style="auto" />
-      </ThemeProvider>
-    );
-  }
-}
 
-const styles = StyleSheet.create({});
+  if (!oswaldLoaded || !latoLoaded) {
+    return null;
+  }
+
+  return (
+    <>
+      <ThemeProvider theme={theme}>
+        <NavigationContainer>
+          <Tab.Navigator screenOptions={createScreenOptions}>
+            <Tab.Screen name="Restaurants" component={RestaurantsScreen} />
+            <Tab.Screen name="Map" component={Map} />
+            <Tab.Screen name="Settings" component={Settings} />
+          </Tab.Navigator>
+        </NavigationContainer>
+      </ThemeProvider>
+      <ExpoStatusBar style="auto" />
+    </>
+  );
+}

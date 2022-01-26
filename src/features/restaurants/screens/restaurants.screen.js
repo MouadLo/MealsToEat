@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components/native';
+import React from "react";
+import styled from "styled-components/native";
 import {
   StyleSheet,
   Text,
@@ -7,15 +7,11 @@ import {
   SafeAreaView,
   StatusBar,
   FlatList,
-} from 'react-native';
-import { Searchbar, useTheme } from 'react-native-paper';
-import { RestaurantInfoCard } from '../components/restaurant-info-card.component';
-import { Spacer } from '../../../components/spacer/spacer.component';
-
-const SafeArea = styled(SafeAreaView)`
-  flex: 1;
-  ${StatusBar.currentHeight && `margin-top: ${StatusBar.currentHeight}px`};
-`;
+} from "react-native";
+import { Searchbar, useTheme } from "react-native-paper";
+import { RestaurantInfoCard } from "../components/restaurant-info-card.component";
+import { Spacer } from "../../../components/spacer/spacer.component";
+import { SafeArea } from "../../../components/utility/safe-area.component";
 
 const SearchContainer = styled.View`
   padding: ${props => props.theme.space[3]};
@@ -28,8 +24,8 @@ const ReastaurantList = styled(FlatList).attrs({
   },
 })``;
 
-const RestaurantScreen = () => {
-  const [searchQuery, setSearchQuery] = React.useState('');
+const RestaurantsScreen = () => {
+  const [searchQuery, setSearchQuery] = React.useState("");
   const { colors } = useTheme();
   const onChangeSearch = query => setSearchQuery(query);
   return (
@@ -65,6 +61,4 @@ const RestaurantScreen = () => {
   );
 };
 
-const styles = StyleSheet.create({});
-
-export { RestaurantScreen };
+export { RestaurantsScreen };

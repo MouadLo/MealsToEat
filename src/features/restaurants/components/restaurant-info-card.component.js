@@ -1,13 +1,13 @@
-import React from 'react';
-import styled from 'styled-components/native';
-import { Image } from 'react-native';
-import { Card, Paragraph } from 'react-native-paper';
-import { SvgXml } from 'react-native-svg';
+import React from "react";
+import styled from "styled-components/native";
+import { Image } from "react-native";
+import { Card, Paragraph } from "react-native-paper";
+import { SvgXml } from "react-native-svg";
 
-import star from '../../../../assets/star';
-import open from '../../../../assets/open';
-import { Spacer } from '../../../components/spacer/spacer.component';
-import { Text } from '../../../components/typography/text.component';
+import star from "../../../../assets/star";
+import open from "../../../../assets/open";
+import { Spacer } from "../../../components/spacer/spacer.component";
+import { Text } from "../../../components/typography/text.component";
 import {
   Address,
   Icon,
@@ -17,7 +17,7 @@ import {
   RestaurantCardCover,
   Section,
   SectionEnd,
-} from './restaurant-info-card.styles';
+} from "./restaurant-info-card.styles";
 
 const Open = styled(SvgXml)`
   flex-direction: row;
@@ -25,12 +25,12 @@ const Open = styled(SvgXml)`
 
 const RestaurantInfoCard = ({ restaurant = {} }) => {
   const {
-    name = 'Some Restaurant',
-    icon = 'https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png',
+    name = "Some Restaurant",
+    icon = "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",
     photos = [
-      'https://www.foodiesfeed.com/wp-content/uploads/2019/06/top-view-for-box-of-2-burgers-home-made-600x899.jpg',
+      "https://www.foodiesfeed.com/wp-content/uploads/2019/06/top-view-for-box-of-2-burgers-home-made-600x899.jpg",
     ],
-    address = '100 some random street',
+    address = "100 some random street",
     isOpenNow = true,
     rating = 4,
     isClosedTemporarily = true,
