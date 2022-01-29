@@ -1,7 +1,4 @@
 import React from "react";
-import styled from "styled-components/native";
-import { Image } from "react-native";
-import { Card, Paragraph } from "react-native-paper";
 import { SvgXml } from "react-native-svg";
 
 import star from "../../../../assets/star";
@@ -9,7 +6,6 @@ import open from "../../../../assets/open";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { Text } from "../../../components/typography/text.component";
 import {
-  Address,
   Icon,
   Info,
   Rating,
@@ -18,10 +14,6 @@ import {
   Section,
   SectionEnd,
 } from "./restaurant-info-card.styles";
-
-const Open = styled(SvgXml)`
-  flex-direction: row;
-`;
 
 const RestaurantInfoCard = ({ restaurant = {} }) => {
   const {
